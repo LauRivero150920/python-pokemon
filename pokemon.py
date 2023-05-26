@@ -1,8 +1,14 @@
 import requests 
 import json
 
+def retrieve_response(url, selected_pokemon):
+    response_pokemon = requests.get(url + selected_pokemon)
+    data = response_pokemon.text
+    output = json.loads(data)
+    return output
+
 print("**** Pokemon list ****")
-pokemon = ['bulbasaur', 'charmander', 'squirtle', 'pikachu']
+pokemon = ['bulbasaur', 'charmander', 'squirtle', 'pichu']
 
 for i in range(4):
     print(i + 1,pokemon[i])
@@ -16,9 +22,26 @@ while(int(selected_pokemon) > 4 or int(selected_pokemon) < 1):
 selected_pokemon = pokemon[int(selected_pokemon) - 1]
 print("You selected", selected_pokemon)
 
-response_pokemon = requests.get('https://pokeapi.co/api/v2/pokemon/' + selected_pokemon)
-data = response_pokemon.text
-pokemon_API_info = json.loads(data)
+pokemon_API_info = retrieve_response('https://pokeapi.co/api/v2/pokemon/', selected_pokemon)
 
-#print(pokemon_API_info['abilities'])
-#print(pokemon_API_info)
+#* Information Needed
+# Pokemon Image
+image_link = pokemon_API_info['sprites']['versions']['generation-vii']['ultra-sun-ultra-moon']['front_default']
+
+#! Double damage from
+
+#! Double damage to
+# Evolutions
+pokemon_species_info = retrieve_response('https://pokeapi.co/api/v2/pokemon-species/', selected_pokemon)
+evolution_chain_url = pokemon_species_info['evolution_chain']['url']
+evolution_chain = retrieve_response(evolution_chain_url, "")
+evolution_1 = evolution_chain['chain']['evolves_to'][0]['species']['name']
+evolution_2 = evolution_chain['chain']['evolves_to'][0]['evolves_to'][0]['species']['name']
+
+
+#! Hp
+#! Attack
+#! Defense
+#! Base Experience
+#! Pokemon type
+#! Pokemon Abilities: Name, effects
