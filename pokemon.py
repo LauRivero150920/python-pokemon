@@ -24,9 +24,10 @@ print("You selected", selected_pokemon)
 
 pokemon_API_info = retrieve_response('https://pokeapi.co/api/v2/pokemon/', selected_pokemon)
 
+#* Information Needed
+# Pokemon Type
 pokemon_type = pokemon_API_info['types'][0]['type']['name']
 
-#* Information Needed
 # Pokemon Image
 image_link = pokemon_API_info['sprites']['versions']['generation-vii']['ultra-sun-ultra-moon']['front_default']
 
@@ -55,10 +56,29 @@ evolution_chain = retrieve_response(evolution_chain_url, "")
 evolution_1 = evolution_chain['chain']['evolves_to'][0]['species']['name']
 evolution_2 = evolution_chain['chain']['evolves_to'][0]['evolves_to'][0]['species']['name']
 
+# Hp, Attack, Defense
+poke_stats = pokemon_API_info['stats']
 
-#! Hp
-#! Attack
-#! Defense
-#! Base Experience
-#! Pokemon type
-#! Pokemon Abilities: Name, effects
+poke_hp = poke_stats[0]['base_stat']
+poke_attack = poke_stats[1]['base_stat']
+poke_defense = poke_stats[2]['base_stat']
+
+# Base Experience
+poke_base_exp = pokemon_API_info['base_experience']
+
+# Pokemon Abilities: Name, effects
+abilities_names = []
+abilities_array = []
+abilities = pokemon_API_info['abilities']
+
+abilities_names = [0 for i in range(len(abilities))]
+abilities_array = [0 for i in range(len(abilities))]
+
+for i in range(len(abilities)):
+    ability = abilities[i]['ability']
+    ability_name = ability['name']
+    ability_url = ability['url']
+
+    abilities_names[i] = ability_name
+
+    abilities_array[i] = retrieve_response(ability_url, "")['effect_entries'][1]['effect']
