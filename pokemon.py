@@ -83,14 +83,32 @@ for i in range(len(abilities)):
     abilities_array[i] = retrieve_response(ability_url, "")['effect_entries'][1]['effect']
 
 #* HTML Generation
-html_file = open("html/" + selected_pokemon + ".html", "a")
-html_file.write("Now the file has more content!")
+poke_html = open("html/" + selected_pokemon + ".html", "a")
+base_file = open('html/base.html','r')
 
-with open('html/base.html','r') as base_file, open("html/" + selected_pokemon + ".html", "a") as poke_html:
-    for line in base_file:
-        poke_html.write(line)
+if(pokemon_type == 'fire'):
+    back_color = "rgb(212, 114, 114)"
+    letter_color = "rgb(245, 243, 243)"
+elif(pokemon_type == 'water'):
+    back_color = "rgb(128, 203, 232)"
+    letter_color = "rgb(245, 243, 243)"
+elif(pokemon_type == 'electric'):
+    back_color = "rgb(232, 206, 128)"
+    letter_color = "rgb(21, 21, 21)"
+elif(pokemon_type == 'grass'):
+    back_color = "rgb(113, 201, 150)"
+    letter_color = "rgb(21, 21, 21)"
 
-# red: rgb(212, 114, 114)
-# yellow: rgb(232, 206, 128)
-# green: rgb(113, 201, 150)
-# water: rgb(128, 203, 232)
+data = [0 for i in range(20)]
+
+with open('css/style.css', 'r') as poke_css:
+    data = poke_css.readlines()
+
+data[1] = f"\tbackground-color: {back_color};\n"
+data[2] = f"\tcolor: {letter_color};\n"
+
+with open('css/style.css', 'w') as poke_css:
+    poke_css.writelines(data)
+
+for line in base_file:
+    poke_html.write(line)

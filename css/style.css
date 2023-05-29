@@ -1,14 +1,15 @@
-h1{
-    font-size: 40px;
-}
 body{
-    background-color: rgb(232, 206, 128);
-    color: black;
+	background-color: rgb(232, 206, 128);
+	color: rgb(21, 21, 21);
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 img{
     width: 50%;
+}
+
+h1{
+    font-size: 40px;
 }
 
 #left_cont, #right_cont{
