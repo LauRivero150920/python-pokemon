@@ -24,12 +24,11 @@ print("You selected", selected_pokemon)
 
 pokemon_API_info = retrieve_response('https://pokeapi.co/api/v2/pokemon/', selected_pokemon)
 
-#* Information Needed
 # Pokemon Type
 pokemon_type = pokemon_API_info['types'][0]['type']['name']
 
 # Pokemon Image
-image_link = pokemon_API_info['sprites']['versions']['generation-vii']['ultra-sun-ultra-moon']['front_default']
+image_link = pokemon_API_info['sprites']['other']['dream_world']['front_default']
 
 # Double damage from
 db_dmg = retrieve_response('https://pokeapi.co/api/v2/type/', pokemon_type)
@@ -82,3 +81,16 @@ for i in range(len(abilities)):
     abilities_names[i] = ability_name
 
     abilities_array[i] = retrieve_response(ability_url, "")['effect_entries'][1]['effect']
+
+#* HTML Generation
+html_file = open("html/" + selected_pokemon + ".html", "a")
+html_file.write("Now the file has more content!")
+
+with open('html/base.html','r') as base_file, open("html/" + selected_pokemon + ".html", "a") as poke_html:
+    for line in base_file:
+        poke_html.write(line)
+
+# red: rgb(212, 114, 114)
+# yellow: rgb(232, 206, 128)
+# green: rgb(113, 201, 150)
+# water: rgb(128, 203, 232)
