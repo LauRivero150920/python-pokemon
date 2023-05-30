@@ -11,12 +11,12 @@ def retrieve_response(url, selected_pokemon):
     return output
 
 def update_html(id, poke_data):
-    with open("html/" + selected_pokemon + ".html") as poke_html:
+    with open(poke_html_path) as poke_html:
         soup = bs(poke_html, "html.parser")
     target = soup.find(id=id)
     target.find(string=re.compile(id)).replace_with(str(poke_data).capitalize())
 
-    with open("html/" + selected_pokemon + ".html", "wb") as poke_html:
+    with open(poke_html_path, "wb") as poke_html:
         poke_html.write(soup.prettify("utf-8"))
 
 def arrange_array(array):
@@ -104,7 +104,13 @@ for i in range(len(abilities)):
     abilities_array[i] = retrieve_response(ability_url, "")['effect_entries'][1]['effect']
 
 #* HTML Generation
-poke_html = open("html/" + selected_pokemon + ".html", "a")
+
+poke_html_path = "html/" + selected_pokemon + ".html"
+if(os.path.exists(poke_html_path)):
+    if(os.path.isfile(poke_html_path)):
+        os.remove(poke_html_path)
+
+poke_html = open(poke_html_path, "a")
 base_file = open('html/base.html','r')
 
 if(pokemon_type == 'fire'):
@@ -134,12 +140,12 @@ with open('css/style.css', 'w') as poke_css:
 for line in base_file:
     poke_html.write(line)
 
-with open("html/" + selected_pokemon + ".html", "r") as poke_html:
+with open(poke_html_path, "r") as poke_html:
     poke_html_data = poke_html.readlines()
 
 poke_html_data[14] = f"\t\t<img src=\"{image_link}\" alt=\"{selected_pokemon}\" id=\"poke_image\">"
 
-with open("html/" + selected_pokemon + ".html", "w") as poke_html:
+with open(poke_html_path, "w") as poke_html:
     poke_html.writelines(poke_html_data)
 
 poke_html.close()
