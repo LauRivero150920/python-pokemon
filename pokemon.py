@@ -114,13 +114,13 @@ poke_html = open(poke_html_path, "a")
 base_file = open('html/base.html','r')
 
 if(pokemon_type == 'fire'):
-    back_color = "rgb(212, 114, 114)"
+    back_color = "rgb(224, 79, 79)"
     letter_color = "rgb(245, 243, 243)"
 elif(pokemon_type == 'water'):
-    back_color = "rgb(128, 203, 232)"
+    back_color = "rgb(54, 172, 217)"
     letter_color = "rgb(245, 243, 243)"
 elif(pokemon_type == 'electric'):
-    back_color = "rgb(232, 206, 128)"
+    back_color = "rgb(255, 211, 89)"
     letter_color = "rgb(21, 21, 21)"
 elif(pokemon_type == 'grass'):
     back_color = "rgb(113, 201, 150)"
