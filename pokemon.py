@@ -34,15 +34,15 @@ def get_image(pokemon):
     return image_url
 
 print("**** Pokemon list ****")
-pokemon = ['bulbasaur', 'charmander', 'squirtle', 'pichu']
+pokemon = ['bulbasaur', 'charmander', 'squirtle', 'pichu', 'elekid', 'chikorita', 'cyndaquil', 'totodile', 'piplup', 'oshawott']
 
-for i in range(4):
+for i in range(len(pokemon)):
     print(i + 1,pokemon[i])
 
 print("**********************")
 selected_pokemon = input("Select your pokemon: ")
 
-while(int(selected_pokemon) > 4 or int(selected_pokemon) < 1):
+while(int(selected_pokemon) > len(pokemon) or int(selected_pokemon) < 1):
     selected_pokemon = input("Please select a valid pokemon: ")
 
 selected_pokemon = pokemon[int(selected_pokemon) - 1]
