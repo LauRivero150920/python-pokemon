@@ -28,6 +28,11 @@ def arrange_array(array):
             out_string += array[i]
     return out_string
 
+def get_image(pokemon):
+    poke_response = retrieve_response('https://pokeapi.co/api/v2/pokemon/', pokemon)
+    image_url = poke_response['sprites']['other']['dream_world']['front_default']
+    return image_url
+
 print("**** Pokemon list ****")
 pokemon = ['bulbasaur', 'charmander', 'squirtle', 'pichu']
 
@@ -49,7 +54,7 @@ pokemon_API_info = retrieve_response('https://pokeapi.co/api/v2/pokemon/', selec
 pokemon_type = pokemon_API_info['types'][0]['type']['name']
 
 # Pokemon Image
-image_link = pokemon_API_info['sprites']['other']['dream_world']['front_default']
+poke_image_link = get_image(selected_pokemon)
 
 # Double damage from
 db_dmg = retrieve_response('https://pokeapi.co/api/v2/type/', pokemon_type)
@@ -73,8 +78,12 @@ for i in range(len(db_dmg_to)):
 pokemon_species_info = retrieve_response('https://pokeapi.co/api/v2/pokemon-species/', selected_pokemon)
 evolution_chain_url = pokemon_species_info['evolution_chain']['url']
 evolution_chain = retrieve_response(evolution_chain_url, "")
+
 evolution_1 = evolution_chain['chain']['evolves_to'][0]['species']['name']
 evolution_2 = evolution_chain['chain']['evolves_to'][0]['evolves_to'][0]['species']['name']
+
+poke_evol_1_link = get_image(evolution_1)
+poke_evol_2_link = get_image(evolution_2)
 
 # Hp, Attack, Defense
 poke_stats = pokemon_API_info['stats']
@@ -143,7 +152,9 @@ for line in base_file:
 with open(poke_html_path, "r") as poke_html:
     poke_html_data = poke_html.readlines()
 
-poke_html_data[14] = f"\t\t<img src=\"{image_link}\" alt=\"{selected_pokemon}\" id=\"poke_image\">"
+poke_html_data[14] = f"\t\t<img src=\"{poke_image_link}\" alt=\"{selected_pokemon}\" id=\"poke_image\">"
+poke_html_data[25] = f"\t\t<img src=\"{poke_evol_1_link}\" alt=\"{evolution_1}\" id=\"evo_1_img\">"
+poke_html_data[29] = f"\t\t<img src=\"{poke_evol_2_link}\" alt=\"{evolution_2}\" id=\"evo_2_img\">"
 
 with open(poke_html_path, "w") as poke_html:
     poke_html.writelines(poke_html_data)

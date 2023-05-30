@@ -8,23 +8,34 @@
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
+    <h1 id="pokemon_name" style="text-align: center;">pokemon_name</h1>
     <br>
     <div id="left_cont">
-        <h1 id="pokemon_name">pokemon_name</h1>
-        <img src="poke_image" alt="" id="poke_image">
+        <div id="image">
+            <img src="poke_image" alt="" id="poke_image">
+        </div>
         <br><br>
+        <div id="types">
+            <h2>Type</h2>
+            <span id="poke_type">poke_type</span>
+        </div>
+        <div id="evolutions">
+            <h2>Evolutions</h2>
+            <div class="evol">
+                <h3 id="evol_1">evol_1</h3>
+                <img src="evo_1_img" alt="" id="evo_1_img">
+            </div>
+            <div class="evol">
+                <h3 id="evol_2">evol_2</h3>
+                <img src="evo_2_img" alt="" id="evo_2_img">
+            </div>
+        </div>
+    </div>
+    <div id="right_cont">
         <h2>Double damage from</h2>
         <span id="double_from">double_from</span>
         <h2>Double damage to</h2>
         <span id="double_to">double_to</span>
-    </div>
-    <div id="right_cont">
-        <h2>Type</h2>
-        <span id="poke_type">poke_type</span>
-        <h2>Evolutions</h2>
-        <span id="evol_1">evol_1</span>
-        <br>
-        <span id="evol_2">evol_2</span>
         <br>
         <h2>Stats</h2>
         <span id="poke_hp"><strong>HP: </strong>poke_hp</span>

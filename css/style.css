@@ -1,5 +1,5 @@
 body{
-	background-color: rgb(212, 114, 114);
+	background-color: rgb(224, 79, 79);
 	color: rgb(245, 243, 243);
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
@@ -9,7 +9,7 @@ img{
 }
 
 h1{
-    font-size: 40px;
+    font-size: 50px;
 }
 
 #left_cont, #right_cont{
@@ -17,4 +17,21 @@ h1{
     margin-right: 60px;
     margin-left: 60px;
     width: 40%;
+    vertical-align: top;
+}
+
+#evo_1_img, #evo_2_img{
+    width: 80%;
+    vertical-align: top;
+    text-align: center;
+}
+
+.evol{
+    display: inline-block;
+    width: 40%;
+    margin-right: 50px;
+}
+
+#left_cont{
+    text-align: center;
 }
