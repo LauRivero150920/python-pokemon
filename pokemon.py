@@ -33,6 +33,11 @@ def get_image(pokemon):
     image_url = poke_response['sprites']['other']['dream_world']['front_default']
     return image_url
 
+def file_exists(file_name):
+    if(os.path.exists(file_name)):
+        if(os.path.isfile(file_name)):
+            os.remove(file_name)
+
 print("**** Pokemon list ****")
 pokemon = ['bulbasaur', 'charmander', 'squirtle', 'pichu', 'elekid', 'chikorita', 'cyndaquil', 'totodile', 'piplup', 'oshawott']
 
@@ -115,12 +120,15 @@ for i in range(len(abilities)):
 #* HTML Generation
 
 poke_html_path = "html/" + selected_pokemon + ".html"
-if(os.path.exists(poke_html_path)):
-    if(os.path.isfile(poke_html_path)):
-        os.remove(poke_html_path)
+poke_css_path = "css/" + pokemon_type + ".css"
+
+file_exists(poke_html_path)
+file_exists(poke_css_path)
 
 poke_html = open(poke_html_path, "a")
-base_file = open('html/base.html','r')
+poke_css = open(poke_css_path, "a")
+base_html = open('html/base.html','r')
+base_css = open('css/style.css','r')
 
 if(pokemon_type == 'fire'):
     back_color = "rgb(224, 79, 79)"
@@ -137,21 +145,25 @@ elif(pokemon_type == 'grass'):
 
 data = [0 for i in range(20)]
 
-with open('css/style.css', 'r') as poke_css:
+for line in base_css:
+    poke_css.write(line)
+
+with open(poke_css_path, 'r') as poke_css:
     data = poke_css.readlines()
 
 data[1] = f"\tbackground-color: {back_color};\n"
 data[2] = f"\tcolor: {letter_color};\n"
 
-with open('css/style.css', 'w') as poke_css:
+with open(poke_css_path, 'w') as poke_css:
     poke_css.writelines(data)
 
-for line in base_file:
+for line in base_html:
     poke_html.write(line)
 
 with open(poke_html_path, "r") as poke_html:
     poke_html_data = poke_html.readlines()
 
+poke_html_data[7] = f"\t<link rel=\"stylesheet\" href=\"../css/{pokemon_type}.css\">"
 poke_html_data[14] = f"\t\t<img src=\"{poke_image_link}\" alt=\"{selected_pokemon}\" id=\"poke_image\">"
 poke_html_data[25] = f"\t\t<img src=\"{poke_evol_1_link}\" alt=\"{evolution_1}\" id=\"evo_1_img\">"
 poke_html_data[29] = f"\t\t<img src=\"{poke_evol_2_link}\" alt=\"{evolution_2}\" id=\"evo_2_img\">"
@@ -161,7 +173,7 @@ with open(poke_html_path, "w") as poke_html:
 
 poke_html.close()
 poke_css.close()
-base_file.close()
+base_html.close()
 
 update_html("pokemon_name", selected_pokemon)
 
