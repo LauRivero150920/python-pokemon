@@ -8,12 +8,12 @@ PokeApi Documentation: https://pokeapi.co/
 
 ## Running the Code
 1. Install the corresponding python modules
-```powershell
+```python
 pip install bs4
 pip install requests
 ```
 2. In the path where the **pokemon.py** file is located, run the following command
-```powershell
+```python
 py .\pokemon.py 
 
 ```
